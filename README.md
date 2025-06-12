@@ -404,13 +404,35 @@ server {
 }
 ```
 
+This Nginx configuration sets up a reverse proxy:
+
+- **listen 80;**: Listens on port 80, the default HTTP port.
+- **server*name *;**: Matches any server name.
+- **location /**: Defines the behavior for requests to the root URL.
+- **proxy_pass http://localhost:3000;**: Forwards requests to the app running on port 3000.
+- **proxy_http_version 1.1;**: Uses HTTP/1.1 for proxying.
+- **proxy_set_header**: Sets headers to maintain the connection and host information.
+- **proxy_cache_bypass**: Ensures caching is bypassed for WebSocket connections.
+
 Enable the site:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/test-api /etc/nginx/sites-enabled/
+```
+
+This command creates a symbolic link to enable the site configuration.
+
+```bash
 sudo nginx -t
+```
+
+Tests the Nginx configuration for syntax errors.
+
+```bash
 sudo systemctl reload nginx
 ```
+
+Reloads Nginx to apply the new configuration without restarting the server.
 
 (Optional) Disable default Nginx site:
 
