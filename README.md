@@ -159,7 +159,11 @@ sudo npm install
 
 ## 🔓 Step 7: Open Ports on Ubuntu
 
+To ensure you can connect to your VM via SSH, you need to allow SSH traffic through the firewall. This is crucial for remote management and making further changes to your server.
+
 ```bash
+sudo ufw allow OpenSSH
+sudo ufw allow 22/tcp
 sudo ufw allow 3000/tcp
 sudo ufw enable
 ```
