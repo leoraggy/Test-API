@@ -348,15 +348,13 @@ Check status:
 sudo systemctl status test-api.service
 ```
 
-## 🛑 Stopping the Service
+## 🛑 Stopping the Service - Skip this step on the first run through. This is for when you need to deploy changes
 
 If you need to stop the service, use the following command:
 
 ```bash
 sudo systemctl stop test-api.service
 ```
-
-### Skip this on the first run through. This is only for applying updates to your server.js
 
 If you need to stop the service to update it, this command will stop the service immediately, halting its execution.
 
