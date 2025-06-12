@@ -414,7 +414,14 @@ This Nginx configuration sets up a reverse proxy:
 - **proxy_set_header**: Sets headers to maintain the connection and host information.
 - **proxy_cache_bypass**: Ensures caching is bypassed for WebSocket connections.
 
-Enable the site:
+Disable default Nginx site:
+
+```bash
+sudo rm /etc/nginx/sites-enabled/default
+sudo systemctl reload nginx
+```
+
+Enable your site:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/test-api /etc/nginx/sites-enabled/
@@ -433,13 +440,6 @@ sudo systemctl reload nginx
 ```
 
 Reloads Nginx to apply the new configuration without restarting the server.
-
-(Optional) Disable default Nginx site:
-
-```bash
-sudo rm /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
-```
 
 ---
 
