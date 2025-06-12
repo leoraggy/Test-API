@@ -2,6 +2,8 @@
 
 This tutorial walks you through deploying an Express app on an Ubuntu VM in Microsoft Azure. We'll configure **Nginx as a reverse proxy** so your app can be accessed with just the public IP — no port number needed. You'll also set it up to auto-start and stay running.
 
+If you have a repository with an express app running great! If not fork this repository and use it when prompted. https://github.com/JoshuaEmery/Test-API.git
+
 ---
 
 ## 🧰 Prerequisites
@@ -198,12 +200,14 @@ ssh -T git@github.com
 
 ## 📁 Step 6: Clone Your App and Install Dependencies
 
+#### If you have your own repo you would like to deploy clone it. If not you can use the repo you forked at the beginning from here: https://github.com/JoshuaEmery/Test-API.git
+
 ```bash
 cd /var/www
 ```
 
 ```bash
-sudo git clone git@github.com:YourUsername/Test-API.git
+sudo git clone WebAddressToYourRepository
 ```
 
 ```bash
