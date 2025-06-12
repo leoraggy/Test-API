@@ -200,8 +200,17 @@ ssh -T git@github.com
 
 ```bash
 cd /var/www
+```
+
+```bash
 sudo git clone git@github.com:YourUsername/Test-API.git
+```
+
+```bash
 cd Test-API
+```
+
+```bash
 sudo npm install
 ```
 
