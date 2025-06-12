@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// Middleware to parse JSON request bodies
+app.use(express.json());
+
 // Serve static files from the public directory
 app.use(express.static("public"));
 
@@ -23,6 +26,12 @@ app.get("/api/status", (req, res) => {
     timestamp: new Date().toISOString(),
     version: "1.0.0",
   });
+});
+
+// Endpoint to handle form submission
+app.post("/api/submit", (req, res) => {
+  const name = req.body.name;
+  res.json({ message: `Form submitted successfully! Hello, ${name}!` });
 });
 
 // Start the server
