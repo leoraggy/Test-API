@@ -158,11 +158,21 @@ node --version
 
 ### Why?
 
-SSH allows secure and password-less communication between your server and GitHub for cloning private or public repos.
+In order to connect to your github account you need to authenticate. We do not have a browser in a linux environment with no GUI. You must use SSH to authenticate with git.
+
+#### First setup your username
 
 ```bash
 git config --global user.name "Your Name"
+```
+
+```bash
 git config --global user.email "your_email@example.com"
+```
+
+#### No we generate a secure key
+
+```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
