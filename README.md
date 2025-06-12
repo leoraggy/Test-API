@@ -200,25 +200,33 @@ ssh -T git@github.com
 
 ## 📁 Step 6: Clone Your App and Install Dependencies
 
-#### If you have your own repo you would like to deploy clone it. If not you can use the repo you forked at the beginning from here: https://github.com/JoshuaEmery/Test-API.git
+#### If you have your own repo you would like to deploy, clone it. If not, you can use the repo you forked at the beginning from here: https://github.com/JoshuaEmery/Test-API.git
+
+This step involves cloning your application repository to the server and installing its dependencies. This is crucial for setting up your application environment on the server.
 
 ```bash
 cd /var/www
 ```
 
+Navigate to the `/var/www` directory where your web applications are stored.
+
 ```bash
 sudo git clone WebAddressToYourRepository
 ```
+
+Clone your repository using Git. Replace `WebAddressToYourRepository` with the actual URL of your repository.
 
 ```bash
 cd Test-API
 ```
 
+Change into the directory of your cloned repository.
+
 ```bash
 sudo npm install
 ```
 
----
+Install the necessary dependencies for your Node.js application using NPM.
 
 ## 🔓 Step 7: Open Ports on Ubuntu
 
@@ -263,26 +271,48 @@ Visit: `http://<your-public-ip>:3000`
 
 ### Why?
 
-A systemd service keeps your app running in the background and starts it automatically after a reboot.
+Running your app as a service ensures it stays running in the background and restarts automatically after a reboot. This is essential for maintaining uptime and reliability.
 
 ```bash
 cd /etc/systemd/system
+```
+
+Navigate to the systemd directory where service files are stored.
+
+```bash
 sudo vi test-api.service
 ```
+
+Create a new service file for your application using `vi`, a powerful text editor available in most Linux distributions.
+
+### Using vi as a Text Editor
+
+`vi` is a modal text editor, meaning it has different modes for different tasks. Here's a quick guide:
+
+- **Insert Mode**: Press `i` to enter insert mode, allowing you to type text.
+- **Normal Mode**: Press `Esc` to return to normal mode, where you can navigate and execute commands.
+- **Save and Exit**: Type `:wq` in normal mode to save changes and exit.
+- **Exit Without Saving**: Type `:q!` to exit without saving changes.
+
+`vi` is used because it's lightweight, available by default on most systems, and powerful for editing configuration files.
 
 Paste the following (update paths if needed):
 
 ```ini
 [Unit]
-Description=My Express App
+Description=My Web Server
+# Only launch after network service has started
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /var/www/Test-API/server.js
+# Full address of your app
+ExecStart=node /var/www/Test-API/server.js
 Restart=always
 User=nobody
+# Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
 Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
+# Set Node to production env
 Environment=NODE_ENV=production
 WorkingDirectory=/var/www/Test-API
 
@@ -296,15 +326,47 @@ Reload and enable the service:
 
 ```bash
 sudo systemctl daemon-reload
+```
+
+This command reloads the systemd manager configuration. It's necessary after creating or modifying service files to ensure that systemd recognizes the changes.
+
+```bash
 sudo systemctl enable test-api.service
+```
+
+This command enables the service to start automatically at boot. It creates a symbolic link in the system's startup configuration, ensuring the service runs whenever the system is restarted.
+
+```bash
 sudo systemctl start test-api.service
 ```
+
+This command starts the service immediately. It runs the service based on the configuration specified in the service file.
 
 Check status:
 
 ```bash
 sudo systemctl status test-api.service
 ```
+
+## 🛑 Stopping the Service
+
+If you need to stop the service, use the following command:
+
+```bash
+sudo systemctl stop test-api.service
+```
+
+### Skip this on the first run through. This is only for applying updates to your server.js
+
+If you need to stop the service to update it, this command will stop the service immediately, halting its execution.
+
+To prevent it from starting at boot, you can disable it with:
+
+```bash
+sudo systemctl disable test-api.service
+```
+
+These commands are useful for managing the service's operation and ensuring it doesn't run when not needed.
 
 ---
 
