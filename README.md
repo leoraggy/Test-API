@@ -126,18 +126,30 @@ NVM (Node Version Manager) lets you install and switch between different Node.js
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+```
 
+```bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-nvm install --lts
 ```
 
 Test with:
 
 ```bash
 nvm --version
+```
+
+Use nvm to install the most recent long term support version of node
+
+```bash
+nvm install --lts
+```
+
+Test node is working
+
+```bash
+node --version
 ```
 
 ---
