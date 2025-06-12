@@ -27,55 +27,83 @@ You need a Linux server in the cloud to run your backend app and make it reachab
 2. **Create Virtual Machine**:
 
    - Go to **Virtual Machines > + Create**
-   - **Image**: `Ubuntu 22.04 LTS`
-   - **Username**: `azureuser` ✅
+   - **Image**: `Ubuntu Server 24.04 LTS - x64 Gen2`
+   - **VM architecture**: `x64`
+   - **Size**: `Standard_B1ls - 1 vcpu, 0.5 GiB memory ($3.80/month)`
+   - **OS disk type**: `Standard HDD (locally-redundant storage)`
    - **Authentication type**: `SSH public key`
-   - Click **Generate new key pair**
+   - **Username**: `azureuser`
+   - **SSH Key Type**: `RSA SSH Format`
+   - **Generate new key pair**: Azure will automatically generate an SSH key pair for you.
 
-     - Name it `azurekey`
-     - **Download the `.pem` file**
+   Note: The `.pem` file will be available for download after you click **Create**.
 
 3. **Configure Inbound Ports** during VM creation:
 
    - Under **Networking**:
-
-     - ✅ Add the following ports:
-
-       - **SSH (22)**: for connecting via terminal
+     - Allow selected ports:
        - **HTTP (80)**: for web traffic
        - **HTTPS (443)**: for SSL (future use)
-       - **Custom (3000)**: for initial Express testing
+       - **SSH (22)**: for connecting via terminal
 
    Example:
 
    ```
-   + Inbound ports: 22, 80, 443, 3000
+   + Inbound ports: 22, 80, 443
    ```
 
 4. Click **Review + Create**, then **Create** the VM.
 
    - Note the public IP address once provisioning is done.
 
+   - Download the `.pem` file after clicking **Create**.
+
 ---
 
 ## 🔗 Step 2: Connect to Your VM
 
+For Linux/Mac users, set the correct permissions for your SSH key:
+
 ```bash
 chmod 400 /path/to/azurekey.pem
+```
+
+Connect to the VM in your terminal
+
+```bash
 ssh -i /path/to/azurekey.pem azureuser@<your-public-ip>
 ```
+
+### Understanding Linux Folder Structure and Navigation
+
+Once connected, you'll be in the home directory of the user. Here's a brief overview of the Linux folder structure:
+
+- `/`: The root directory, the top level of the filesystem.
+- `/home`: Contains personal directories for users.
+- `/var`: Used for variable data like logs and web files.
+- `/etc`: Contains configuration files for the system.
+- `/usr`: Contains user-installed software and libraries.
+
+Basic navigation commands:
+
+- `pwd`: Print the current working directory.
+- `cd <directory>`: Change to the specified directory.
+- `ls`: List files and directories in the current directory.
+
+These commands will help you move around and understand the structure of your Linux environment.
 
 Create a `www` folder in `/var` to host your web applications. This is a common practice to keep web files organized and separate from system files. The `/var` directory is typically used for variable data files, and `www` is a standard location for web content.
 
 ```bash
-mkdir -p /var/www
+cd /var
+sudo mkdir www
 ```
 
 ## 🔧 Step 3: Install Required Software
 
 ### Why?
 
-We need Git to clone your app, Node.js to run it, and NPM to install dependencies. These are essential tools for managing and running your Node.js application.
+We need Git to clone your app, Node.js to run it, and NPM to install dependencies. These are essential tools for managing and running your Node.js application. In linux we install applications through the command line. apt is the package manager that comes built in with ubuntu. These commands will take some time.
 
 ```bash
 sudo apt update
