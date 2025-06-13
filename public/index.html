@@ -1,43 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test API</title>
+    <title>Vite + React</title>
+    <script type="module" crossorigin src="/assets/index-DK-xQhXp.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D8b4DHJx.css">
   </head>
   <body>
-    <h1>Welcome to the Test API</h1>
-    <form id="testForm">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <button type="submit">Submit</button>
-    </form>
-    <pre id="response"></pre>
-    <h2>API Endpoints</h2>
-    <ul>
-      <li><a href="/api/test" target="_blank">Test Endpoint</a></li>
-      <li><a href="/api/hello/yourname" target="_blank">Hello Endpoint</a></li>
-      <li><a href="/api/status" target="_blank">Status Endpoint</a></li>
-    </ul>
-    <script>
-      document
-        .getElementById("testForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          const name = document.getElementById("name").value;
-          fetch("/api/submit", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name }),
-          })
-            .then((response) => response.text())
-            .then((data) => {
-              document.getElementById("response").textContent = data;
-            })
-            .catch((error) => console.error("Error:", error));
-        });
-    </script>
+    <div id="root"></div>
   </body>
 </html>
